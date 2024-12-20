@@ -1,11 +1,8 @@
-import { Button } from '@/components/ui/button.tsx';
+import { RouterProvider } from 'react-router-dom';
+import router from '@/routes/routes.tsx';
 
 function App() {
-  return (
-    <>
-      <Button>FG</Button>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
