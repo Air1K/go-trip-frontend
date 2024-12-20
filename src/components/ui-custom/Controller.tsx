@@ -9,8 +9,8 @@ const Controller: FC<ControllerProps> = ({ children, label, errorMessage, ...pro
   return (
     <div {...props} className={'relative' + ' ' + props.className}>
       <label>{label}</label>
-      <div className={'mt-1'}>{children}</div>
-      <label className={'absolute -bottom-4 left-0 text-xs text-red-500'}>{errorMessage}</label>
+      <div className={'my-1'}>{children}</div>
+      <label className={'absolute -bottom-[18px] left-0 text-xs text-red-500'}>{errorMessage}</label>
     </div>
   );
 };

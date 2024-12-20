@@ -1,33 +1,33 @@
-import { FC, useState } from 'react';
-import Controller from '@/components/ui-custom/Controller.tsx';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input.tsx';
 import { Button } from '@/components/ui/button.tsx';
-interface IUserLoginForm {
-  userName: ItemState;
-  password: ItemState;
-}
-interface ItemState {
-  value: string;
-  errorMessage: string;
-}
+import Controller from '@/components/ui-custom/Controller.tsx';
+
+// Определяем схему валидации
+const loginSchema = z.object({
+  email: z.string().email('Введите корректный email'),
+  password: z
+    .string()
+    .min(6, 'Пароль должен содержать минимум 6 символов')
+    .max(32, 'Пароль не должен превышать 32 символа'),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
 const LoginPage: FC = () => {
-  const [userForm, setUserForm] = useState<IUserLoginForm>({
-    userName: { value: '', errorMessage: '' },
-    password: { value: '', errorMessage: '' },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
   });
-  const submitForm = () => {
-    if (!userForm.userName.value) {
-      setUserForm({ ...userForm, userName: { ...userForm.userName, errorMessage: 'Поле не может быть пустым' } });
-    }
-    if (!userForm.password.value) {
-      setUserForm({ ...userForm, password: { ...userForm.password, errorMessage: 'Поле не может быть пустым' } });
-    }
-    if (userForm.userName.value.length < 3) {
-      setUserForm({ ...userForm, userName: { ...userForm.userName, errorMessage: 'Минимальное ко-во символов 3' } });
-    }
-    if (userForm.password.value.length < 8) {
-      setUserForm({ ...userForm, password: { ...userForm.password, errorMessage: 'Минимальное ко-во символов 8' } });
-    }
+
+  const submitForm = (data: LoginFormValues) => {
+    console.log('Форма отправлена с данными:', data);
   };
 
   return (
@@ -36,25 +36,18 @@ const LoginPage: FC = () => {
         <h3 className={'mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0'}>
           Авторизация
         </h3>
-        <Controller className={'mb-4'} label={'Введите имя пользователя'} errorMessage={userForm.userName.errorMessage}>
-          <Input
-            value={userForm.userName.value}
-            onChange={(e) => setUserForm({ ...userForm, userName: { value: e.target.value, errorMessage: '' } })}
-            type='text'
-            placeholder='Username'
-          />
-        </Controller>
-        <Controller label={'Укажите пароль'} errorMessage={userForm.password.errorMessage}>
-          <Input
-            value={userForm.password.value}
-            onChange={(e) => setUserForm({ ...userForm, password: { value: e.target.value, errorMessage: '' } })}
-            type='password'
-            placeholder='Password'
-          />
-        </Controller>
-        <Button className={'mt-8'} onClick={submitForm}>
-          Авторизоваться
-        </Button>
+        <form onSubmit={handleSubmit(submitForm)}>
+          <Controller className={'mb-4'} label={'Введите имя пользователя'} errorMessage={errors.email?.message || ''}>
+            <Input type='email' placeholder='Email' {...register('email')} className={'border'} />
+          </Controller>
+          <Controller label={'Укажите пароль'} errorMessage={errors.password?.message || ''}>
+            <Input type='password' placeholder='Пароль' {...register('password')} className={'border'} />
+          </Controller>
+
+          <Button type='submit' className={'mt-8 w-full'}>
+            Авторизоваться
+          </Button>
+        </form>
       </div>
     </div>
   );
