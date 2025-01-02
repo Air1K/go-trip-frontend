@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+/** @types {import('tailwindcss').Config} */
 import anime from 'tailwindcss-animate';
+import typography from '@tailwindcss/typography';
 export default {
   darkMode: ['class'],
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
@@ -54,5 +55,5 @@ export default {
       },
     },
   },
-  plugins: [anime],
+  plugins: [anime, typography],
 };

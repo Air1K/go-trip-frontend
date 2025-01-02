@@ -21,9 +21,14 @@ const router = createBrowserRouter([
         children: [{ path: '', element: <BasketPage /> }],
       },
       {
-        path: 'admin',
+        path: '/admin',
         element: <PrivateRoute isAllowed={true} />,
         children: [{ path: '', element: <AdminPage /> }],
+      },
+      {
+        path: '/profile',
+        element: <PrivateRoute isAllowed={true} />,
+        children: [{ path: '', element: <MainPage /> }],
       },
     ],
   },

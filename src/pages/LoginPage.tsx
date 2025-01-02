@@ -5,13 +5,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import Controller from '@/components/ui-custom/Controller.tsx';
+import { useLoginMutation } from '@/api/user/hooks.ts';
+import { Navigate } from 'react-router-dom';
 
 // Определяем схему валидации
 const loginSchema = z.object({
   email: z.string().email('Введите корректный email'),
   password: z
     .string()
-    .min(6, 'Пароль должен содержать минимум 6 символов')
+    .min(4, 'Пароль должен содержать минимум 4 символов')
     .max(32, 'Пароль не должен превышать 32 символа'),
 });
 
@@ -25,10 +27,16 @@ const LoginPage: FC = () => {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
+  const { mutate: login, isSuccess, isPending, error } = useLoginMutation();
 
   const submitForm = (data: LoginFormValues) => {
     console.log('Форма отправлена с данными:', data);
+    login(data);
   };
+
+  if (isSuccess) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <div className={'flex w-full h-screen'}>
@@ -49,6 +57,9 @@ const LoginPage: FC = () => {
           </Button>
         </form>
       </div>
+      {isSuccess && <div>Вы успешно авторизовались</div>}
+      {error && <div>Произошла ошибка при авторизации</div>}
+      {isPending && <div>Авторизация...</div>}
     </div>
   );
 };
