@@ -2,9 +2,10 @@ import { FunctionComponent, HTMLAttributes } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils.ts';
 
-const cardVariants = cva('bg-card rounded-lg gradient-border', {
+const cardVariants = cva('bg-card border rounded-lg', {
   variants: {
     size: {
+      xs: 'p-1',
       s: 'p-2',
       m: 'p-8',
     },

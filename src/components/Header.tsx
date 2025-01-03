@@ -36,7 +36,20 @@ const Header: FC<HeaderProps> = ({ user }) => {
         </div>
         <nav className={'ml-auto flex gap-2'}>
           {getNavLinks(user.role).map((link, index) => (
-            <Button variant={location.pathname === link.path ? 'outline' : 'ghost'} size={'sm'} key={index} asChild>
+            <Button
+              variant={
+                link.path === '/'
+                  ? location.pathname === link.path
+                    ? 'outline'
+                    : 'ghost'
+                  : location.pathname.startsWith(link.path)
+                    ? 'outline'
+                    : 'ghost'
+              }
+              size={'sm'}
+              key={index}
+              asChild
+            >
               <NavLink to={link.path}>{link.label}</NavLink>
             </Button>
           ))}
@@ -45,7 +58,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           {!!user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size={'sm'}>
+                <Button variant={location.pathname === userLink.profile ? 'outline' : 'secondary'} size={'sm'}>
                   <AvatarController avatarUrl={user.avatar || BaseAvatar} /> {user.userName}
                 </Button>
               </DropdownMenuTrigger>

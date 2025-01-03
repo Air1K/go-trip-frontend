@@ -14,7 +14,7 @@ const ProfilePage: FC = () => {
   const userProfile = queryClient.getQueryData<IUser>([KEY_PROFILE]);
   return (
     <div className={'grid grid-flow-col gap-3 items-start'}>
-      <Card className={'flex flex-col gap-3 justify-center'}>
+      <Card className={'flex flex-col gap-3 justify-center gradient-border'}>
         <Avatar className='h-24 w-24 border-4 border-white m-auto'>
           <AvatarImage src={userProfile?.avatar || baseAvatar} />
           <AvatarFallback>
@@ -26,14 +26,14 @@ const ProfilePage: FC = () => {
         </h4>
         <p className={'text-center'}>{userProfile?.email}</p>
       </Card>
-      <Card className={''}>
+      <Card className={'gradient-border'}>
         <ItemProfileInfo name='Имя' value={userProfile?.firstName} />
         <ItemProfileInfo name='Фамилия' value={userProfile?.lastName} />
         <ItemProfileInfo name='Отчество' value={userProfile?.patronymic} />
         <ItemProfileInfo name='Email' value={userProfile?.email} />
         <ItemProfileInfo name='Роль' value={userProfile?.role} />
       </Card>
-      <Card className={''}>
+      <Card className={'gradient-border'}>
         <ItemProfileInfo name='Дата рождения' value={formatDate(userProfile?.dateOfBirth || '', 'yyyy-MM-dd')} />
         <ItemProfileInfo name='Серия паспорта' value={userProfile?.passportSeries} />
         <ItemProfileInfo name='Номер паспорта' value={userProfile?.passportNumber} />

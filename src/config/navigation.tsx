@@ -31,6 +31,56 @@ export function getAdminNavLinks(): AdminNavListType[] {
   ];
 }
 
+export const getAdminLinkInPath = (path: string): AdminNavListType[] | null => {
+  const adminNavLinks = getAdminNavLinks();
+  if (path.startsWith(adminNavLinks[0].path))
+    return [
+      {
+        path: '/admin/vouchers/control',
+        label: 'Путевки',
+      },
+      {
+        path: '/admin/vouchers/travel-agency',
+        label: 'Турагентства',
+      },
+      {
+        path: '/admin/vouchers/tour-operator',
+        label: 'Туроператоры',
+      },
+    ];
+  if (path === adminNavLinks[1].path) {
+    return null;
+  }
+  if (path === adminNavLinks[2].path) {
+    return null;
+  }
+  if (path.startsWith(adminNavLinks[3].path)) {
+    return [
+      {
+        path: '/admin/directory/units-of-measurement',
+        label: 'Единицы измерения',
+      },
+      {
+        path: '/admin/directory/service',
+        label: 'Класс обслуживания',
+      },
+      {
+        path: '/admin/directory/type-of-settlement',
+        label: 'Тип населенного пункта',
+      },
+      {
+        path: '/admin/directory/country',
+        label: 'Страна',
+      },
+      {
+        path: '/admin/directory/locality',
+        label: 'Населенный пункт',
+      },
+    ];
+  }
+  return null;
+};
+
 export const userLink = {
-  profile: 'profile',
+  profile: '/profile',
 };
