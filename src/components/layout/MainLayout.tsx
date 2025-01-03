@@ -8,7 +8,6 @@ import { KEY_PROFILE } from '@/api/user/hooks.ts';
 const MainLayout: FC = () => {
   const queryClient = useQueryClient();
   const userProfile = queryClient.getQueryData<IUser>([KEY_PROFILE]);
-  console.log(userProfile);
   if (!userProfile) {
     return <Navigate to={'/login'} />;
   }
@@ -21,7 +20,7 @@ const MainLayout: FC = () => {
           avatar: userProfile?.avatar || '',
         }}
       />
-      <main className={'container mx-auto'}>
+      <main className={'container mx-auto mt-4'}>
         <Outlet />
       </main>
     </div>

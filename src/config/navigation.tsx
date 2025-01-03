@@ -6,7 +6,7 @@ const commonNavLinks: NavLink[] = [{ path: '/', label: 'Все путевки' }
 
 const roleSpecificNavLinks: { [key in string]?: NavLink[] } = {
   [userRoles.ADMIN]: [{ path: '/admin', label: 'Админ-панель', isDesktopOnly: true }],
-  [userRoles.USER]: [{ path: '/profile/vouchers', label: 'Мои путевки' }],
+  [userRoles.USER]: [{ path: '/vouchers', label: 'Мои путевки' }],
 };
 
 export function getNavLinks(role: string): NavLink[] {
@@ -27,7 +27,7 @@ export function getAdminNavLinks(): AdminNavListType[] {
     { path: '/admin/vouchers', label: 'Управление путевками' },
     { path: '/admin/hotels', label: 'Управление отелями' },
     { path: '/admin/reports', label: 'Отчеты' },
-    { path: '/admin/vouchers/new', label: 'Создать путевку' },
+    { path: '/admin/directory', label: 'Справочная информация' },
   ];
 }
 

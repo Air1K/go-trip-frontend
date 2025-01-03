@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 220 23% 97%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -62,5 +62,64 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.gradient-border {
+  border: 1px solid #e0e0e0;
+  position: relative;
+  transition: all 3s ease;
+  z-index: 1;
+}
+
+.gradient-border::before {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg,
+  rgb(200, 201, 202),
+  rgb(150, 151, 152),
+  rgb(236, 29, 53),
+  rgb(64, 47, 255),
+  rgb(200, 201, 202));
+  background-color: transparent !important;
+  background-size: 300% 300% !important;
+  animation: gradient-border-animation 3s linear infinite;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.gradient-border:hover::before {
+  filter: brightness(1.2);
+  opacity: 1;
+}
+
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+
+@keyframes gradient-border-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

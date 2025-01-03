@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button.tsx';
 import Controller from '@/components/ui-custom/Controller.tsx';
 import { useLoginMutation } from '@/api/user/hooks.ts';
 import { Navigate } from 'react-router-dom';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
+import { AlertCircle } from 'lucide-react';
 
 // Определяем схему валидации
 const loginSchema = z.object({
@@ -20,13 +22,14 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginPage: FC = () => {
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
-  });
+  } = form;
   const { mutate: login, isSuccess, isPending, error } = useLoginMutation();
 
   const submitForm = (data: LoginFormValues) => {
@@ -51,15 +54,18 @@ const LoginPage: FC = () => {
           <Controller label={'Укажите пароль'} errorMessage={errors.password?.message || ''}>
             <Input type='password' placeholder='Пароль' {...register('password')} className={'border'} />
           </Controller>
-
-          <Button type='submit' className={'mt-8 w-full'}>
+          <Button disabled={isPending} type='submit' className={'mt-8 w-full'}>
             Авторизоваться
           </Button>
         </form>
+        {error && (
+          <Alert className={'mt-4'} variant='destructive'>
+            <AlertCircle className='h-4 w-4' />
+            <AlertTitle>Ошибка при авторизации</AlertTitle>
+            <AlertDescription>{error.message}</AlertDescription>
+          </Alert>
+        )}
       </div>
-      {isSuccess && <div>Вы успешно авторизовались</div>}
-      {error && <div>Произошла ошибка при авторизации</div>}
-      {isPending && <div>Авторизация...</div>}
     </div>
   );
 };

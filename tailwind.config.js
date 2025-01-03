@@ -53,6 +53,19 @@ export default {
           5: 'hsl(var(--chart-5))',
         },
       },
+      keyframes: {
+        spin: {
+          from: {
+            transform: 'rotate(0deg)',
+          },
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
+      },
+      animation: {
+        loader: 'spin 1s linear infinite',
+      },
     },
   },
   plugins: [anime, typography],

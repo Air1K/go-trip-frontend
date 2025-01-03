@@ -5,6 +5,7 @@ import PrivateRoute from '@/components/PrivateRoute.tsx';
 import BasketPage from '@/pages/BasketPage.tsx';
 import AdminPage from '@/pages/AdminPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
+import ProfilePage from '@/pages/ProfilePage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         children: [{ path: '', element: <MainPage /> }],
       },
       {
-        path: '/basket',
+        path: '/vouchers',
         element: <PrivateRoute isAllowed={true} />,
         children: [{ path: '', element: <BasketPage /> }],
       },
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <PrivateRoute isAllowed={true} />,
-        children: [{ path: '', element: <MainPage /> }],
+        children: [{ path: '', element: <ProfilePage /> }],
       },
     ],
   },
