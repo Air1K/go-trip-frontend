@@ -30,7 +30,11 @@ const router = createBrowserRouter([
           { path: 'vouchers', element: <BasketPage /> },
           {
             path: 'admin',
-            element: <AdminLayout />,
+            element: (
+              <PrivateRoute isAdmin isAllowed={true}>
+                <AdminLayout />
+              </PrivateRoute>
+            ),
             children: [
               { path: '', element: <Navigate to='vouchers' replace /> },
               {

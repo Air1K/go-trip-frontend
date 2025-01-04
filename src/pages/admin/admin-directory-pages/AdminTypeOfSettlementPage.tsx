@@ -1,9 +1,14 @@
 import { FC } from 'react';
+import DataTable from '@/components/ui-custom/DataTable.tsx';
+import { useSettlementTypeQuery } from '@/api/settlement-type/hooks.ts';
+import { settlementTypeColumns } from '@/components/admin/table/columns/settlementTypeColumn.tsx';
 
 const AdminTypeOfSettlementPage: FC = () => {
+  const { data, isLoading, isError } = useSettlementTypeQuery();
+  const columns = settlementTypeColumns();
   return (
     <div>
-      AdminTypeOfSettlement
+      <DataTable columns={columns} isLoading={isLoading} isError={isError} data={data} />
     </div>
   );
 };

@@ -16,12 +16,10 @@ const PrivateRoute: FC<PrivateRouteProps> = ({ isAllowed, isAdmin, children }) =
   const userIsAdmin = userProfile?.role === 'admin';
 
   if (!isAllowed && !userProfile) {
-    alert('1');
     return <Navigate to={'/login'} />;
   }
 
   if (isAdmin && !userIsAdmin) {
-    alert('2');
     return <Navigate to={'/'} />;
   }
 
