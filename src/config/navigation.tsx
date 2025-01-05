@@ -84,3 +84,7 @@ export const getAdminLinkInPath = (path: string): AdminNavListType[] | null => {
 export const userLink = {
   profile: '/profile',
 };
+
+export const adminLink = {
+  createHotel: '/admin/hotels/create',
+};

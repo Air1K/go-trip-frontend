@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
-import { ISettlement } from '@/api/settlement/types.ts';
+import { IHotel } from '@/api/hotel/types.ts';
 
-export const settlementColumns = (): ColumnDef<ISettlement>[] => [
+export const hotelColumns = (): ColumnDef<IHotel>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -27,15 +27,15 @@ export const settlementColumns = (): ColumnDef<ISettlement>[] => [
     header: 'ID',
   },
   {
-    header: 'Страна',
-    accessorFn: (row) => row.country.name,
-  },
-  {
     accessorKey: 'name',
     header: 'Наименование',
   },
   {
-    header: 'Тип населенного пункта',
-    accessorFn: (row) => row.settlementType.name,
+    header: 'Класс отеля',
+    accessorFn: (row) => row.serviceClasses.name,
+  },
+  {
+    header: 'Населенный пункт',
+    accessorFn: (row) => row.settlements.name,
   },
 ];

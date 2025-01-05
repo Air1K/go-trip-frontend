@@ -9,7 +9,7 @@ const AdminLayout3lvl: FC = () => {
   const links = getAdminLinkInPath(location.pathname);
   return (
     <>
-      <Card size={'s'} className={'flex flex-col gap-3 gradient-border'}>
+      <Card className={'flex flex-col gap-3 gradient-border'}>
         {links?.map((link, index) => (
           <Button
             key={index}

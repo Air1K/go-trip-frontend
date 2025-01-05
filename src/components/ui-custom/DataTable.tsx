@@ -18,6 +18,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import Loader from '@/components/Loader.tsx';
+import Error from '@/components/Error.tsx';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -42,19 +44,19 @@ export function DataTable<TData, TValue>({
   });
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Loader className={'col-span-2 h-[60vh]'} />;
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <Error className={'col-span-2'} />;
   }
   return (
     <div className='w-full'>
       <div className='flex items-center pb-4'>
         <Input
-          placeholder='Filter emails...'
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+          placeholder='Фильтрация по наименованию...'
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
         <DropdownMenu>
@@ -75,7 +77,7 @@ export function DataTable<TData, TValue>({
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) => column.toggleVisibility(!!value)}
                   >
-                    {column.id}
+                    {column.columnDef.header as string}
                   </DropdownMenuCheckboxItem>
                 );
               })}

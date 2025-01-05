@@ -7,7 +7,7 @@ import AdminVouchersPage from '@/pages/admin/admin-vouchers-pages/AdminVouchersP
 import LoginPage from '@/pages/LoginPage.tsx';
 import ProfilePage from '@/pages/ProfilePage.tsx';
 import AdminLayout from '@/components/layout/AdminLayout.tsx';
-import AdminHotelsPage from '@/pages/admin/AdminHotelsPage.tsx';
+import AdminHotelsPage from '@/pages/admin/admin-hotel-pages/AdminHotelsPage.tsx';
 import AdminReportsPage from '@/pages/admin/AdminReportsPage.tsx';
 import AdminUnitsOfMeasurementPage from '@/pages/admin/admin-directory-pages/AdminUnitsOfMeasurementPage.tsx';
 import AdminTravelAgencyPage from '@/pages/admin/admin-vouchers-pages/AdminTravelAgencyPage.tsx';
@@ -17,6 +17,7 @@ import AdminServicePage from '@/pages/admin/admin-directory-pages/AdminServicePa
 import AdminTypeOfSettlementPage from '@/pages/admin/admin-directory-pages/AdminTypeOfSettlementPage.tsx';
 import AdminCountryPage from '@/pages/admin/admin-directory-pages/AdminCountryPage.tsx';
 import AdminLocalityPage from '@/pages/admin/admin-directory-pages/AdminLocalityPage.tsx';
+import AdminCreateHotelPage from '@/pages/admin/admin-hotel-pages/AdminCreateHotelPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,13 @@ const router = createBrowserRouter([
                   { path: 'tour-operator', element: <AdminTourOperatorPage /> },
                 ],
               },
-              { path: 'hotels', element: <AdminHotelsPage /> },
+              {
+                path: 'hotels',
+                children: [
+                  { path: '', element: <AdminHotelsPage /> },
+                  { path: 'create', element: <AdminCreateHotelPage /> },
+                ],
+              },
               { path: 'reports', element: <AdminReportsPage /> },
               {
                 path: 'directory',

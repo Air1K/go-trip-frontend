@@ -5,10 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import Controller from '@/components/ui-custom/Controller.tsx';
-import { useLoginMutation } from '@/api/user/hooks.ts';
+import { KEY_PROFILE, useLoginMutation } from '@/api/user/hooks.ts';
 import { Navigate } from 'react-router-dom';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
 import { AlertCircle } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { IUser } from '@/api/user/types.ts';
 
 // Определяем схему валидации
 const loginSchema = z.object({
@@ -31,7 +33,11 @@ const LoginPage: FC = () => {
     formState: { errors },
   } = form;
   const { mutate: login, isSuccess, isPending, error } = useLoginMutation();
-
+  const queryClient = useQueryClient();
+  const userProfile = queryClient.getQueryData<IUser>([KEY_PROFILE]);
+  if (userProfile) {
+    return <Navigate to={'/'} />;
+  }
   const submitForm = (data: LoginFormValues) => {
     console.log('Форма отправлена с данными:', data);
     login(data);

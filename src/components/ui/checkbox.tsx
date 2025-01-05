@@ -1,28 +1,43 @@
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
+import * as React from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { CheckIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
+const checkboxVariants = cva(
+  'peer shrink-0 rounded-sm border border-border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'rounded-sm',
+        round: 'rounded-full',
+      },
+      size: {
+        xs: 'p-[3px] w-6 h-6',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'xs',
+    },
+  }
+);
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <CheckboxPrimitive.Root
-    ref={ref}
-    className={cn(
-      "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-      className
-    )}
-    {...props}
-  >
+  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & VariantProps<typeof checkboxVariants>
+>(({ className, variant, size, ...props }, ref) => (
+  <CheckboxPrimitive.Root ref={ref} className={cn(checkboxVariants({ variant, size }), '', className)} {...props}>
     <CheckboxPrimitive.Indicator
-      className={cn("flex items-center justify-center text-current")}
+      className={cn(
+        variant === 'round' ? 'rounded-full' : 'rounded-[2px]',
+        'flex items-center h-auto w-auto justify-center text-current data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground'
+      )}
     >
-      <Check className="h-4 w-4" />
+      <CheckIcon className='h-full w-full' />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
-))
-Checkbox.displayName = CheckboxPrimitive.Root.displayName
+));
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-export { Checkbox }
+export { Checkbox };
