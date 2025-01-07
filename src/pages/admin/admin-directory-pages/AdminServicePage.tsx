@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import DataTable from '@/components/ui-custom/DataTable.tsx';
 import { useServiceClassQuery } from '@/api/service-class/hooks.ts';
-import { serviceClassColumns } from '@/components/admin/table/columns/serviceClassColumn.tsx';
+import { serviceClassColumns } from '@/components/admin/table/columns/serviceClassColumns.tsx';
 
 const AdminServicePage: FC = () => {
   const { data, isLoading, isError } = useServiceClassQuery();

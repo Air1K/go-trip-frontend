@@ -12,7 +12,7 @@ const AdminHotelsPage: FC = () => {
   const columns = hotelColumns();
   return (
     <Card className={'col-span-2 flex flex-col'}>
-      <Button className={'mb-4 ml-auto'} asChild>
+      <Button className={'mb-4 mr-auto'} asChild>
         <NavLink to={adminLink.createHotel}>Добавить отель</NavLink>
       </Button>
       <DataTable columns={columns} isLoading={isLoading} isError={isError} data={data} />

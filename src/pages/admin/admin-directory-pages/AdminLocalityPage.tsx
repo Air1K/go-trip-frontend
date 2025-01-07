@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import DataTable from '@/components/ui-custom/DataTable.tsx';
-import { settlementColumns } from '@/components/admin/table/columns/settlementColumn.tsx';
+import { settlementColumns } from '@/components/admin/table/columns/settlementColumns.tsx';
 import { useSettlementQuery } from '@/api/settlement/hooks.ts';
 
 const AdminLocalityPage: FC = () => {

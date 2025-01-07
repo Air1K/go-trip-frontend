@@ -14,7 +14,6 @@ export const useHotelCreateMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: hotelApi.createHotel,
-    mutationKey: [KEY_HOTEL],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [KEY_HOTEL] });
     },

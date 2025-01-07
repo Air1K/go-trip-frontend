@@ -47,8 +47,8 @@ const AdminCreateHotelPage: FC = () => {
   return (
     <Card className={'col-span-2'}>
       <Form {...form}>
-        <form onSubmit={handleSubmit(submitForm)} className={'flex flex-col'}>
-          <Button disabled={isLoadCreate} type='submit' className={'mb-4 ml-auto'}>
+        <form onSubmit={handleSubmit(submitForm)} className={'flex flex-col gap-4'}>
+          <Button disabled={isLoadCreate} type='submit' className={'ml-auto'}>
             Сохранить
           </Button>
           <FormInput control={form.control} name={'name'} label={'Название'} placeholder={'Введите название'} />

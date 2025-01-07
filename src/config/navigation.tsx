@@ -87,4 +87,12 @@ export const userLink = {
 
 export const adminLink = {
   createHotel: '/admin/hotels/create',
+  createVoucher: '/admin/vouchers/create',
+  editVoucher: (id: number) => '/admin/vouchers/edit/' + id,
+  travelAgency: '/admin/vouchers/travel-agency',
+  createTravelAgency: '/admin/vouchers/travel-agency/create',
+  editTravelAgency: (id: number) => '/admin/vouchers/travel-agency/edit/' + id,
+  tourOperator: '/admin/vouchers/tour-operator',
+  createTourOperator: '/admin/vouchers/tour-operator/create',
+  editTourOperator: (id: number) => '/admin/vouchers/tour-operator/edit/' + id,
 };

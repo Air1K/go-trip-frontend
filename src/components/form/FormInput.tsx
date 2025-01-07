@@ -29,7 +29,7 @@ export const FormInput = <T extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <FormItem className={cn('space-y-0 my-2', formItemClassName)}>
+        <FormItem className={cn('space-y-0', formItemClassName)}>
           <p className='text-xs text-muted-foreground ml-3 leading-none mb-1'>
             {label} {required && <span className='text-aggressive'>*</span>}
           </p>

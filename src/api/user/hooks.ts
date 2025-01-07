@@ -15,7 +15,6 @@ export const useLoginMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: authApi.login,
-    mutationKey: [KEY_PROFILE],
     onSuccess: (data) => {
       queryClient.setQueryData([KEY_PROFILE], data);
     },
