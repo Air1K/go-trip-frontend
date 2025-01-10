@@ -36,7 +36,11 @@ export const FormSelect = <T extends FieldValues, O>({
             {label} {required && <span className='text-aggressive'>*</span>}
           </p>
           <FormControl>
-            <Select value={field.value} onValueChange={field.onChange} defaultValue={field.value}>
+            <Select
+              value={String(field.value || '')}
+              onValueChange={field.onChange}
+              defaultValue={String(field.value || '')}
+            >
               <SelectTrigger
                 className={cn(
                   `w-full py-[4px] px-4 border-input rounded-md shadow-sm text-base border text-muted-foreground-placeholder`

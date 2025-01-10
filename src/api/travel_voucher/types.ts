@@ -9,7 +9,7 @@ export interface ITravelVoucher {
   departure_date: string;
   arrival_date: string;
   price: number;
-  tourist_id: string;
+  tourist_id: string | null;
   tourist?: IUser;
   hotel_id: number;
   hotel?: IHotel;

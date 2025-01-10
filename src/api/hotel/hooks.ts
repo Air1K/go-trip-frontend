@@ -19,3 +19,13 @@ export const useHotelCreateMutation = () => {
     },
   });
 };
+
+export const useHotelEditMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: hotelApi.edit,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [KEY_HOTEL] });
+    },
+  });
+};

@@ -2,8 +2,10 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { format } from 'date-fns';
 import { ITravelVoucher } from '@/api/travel_voucher/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
-export const travelVoucherColumns = (): ColumnDef<ITravelVoucher>[] => [
+export const travelVoucherColumns = (setEditVoucherIndex: (index: number) => void): ColumnDef<ITravelVoucher>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -42,12 +44,12 @@ export const travelVoucherColumns = (): ColumnDef<ITravelVoucher>[] => [
   },
   {
     header: 'Стоимость',
-    accessorKey: 'price',
+    accessorFn: (row) => (row.price ?? '') + ' ' + (row.unitOfMeasurement?.short_name ?? ''),
   },
   {
     header: 'Турист',
     // Выводим данные туриста (User) - например, firstName + lastName
-    accessorFn: (row) => (row.tourist ? `${row.tourist.firstName ?? ''} ${row.tourist.lastName ?? ''}`.trim() : ''),
+    accessorFn: (row) => (row.tourist ? `${row.tourist.firstName ?? ''} ${row.tourist.lastName ?? ''}`.trim() : '-'),
   },
   {
     header: 'Отель',
@@ -60,5 +62,17 @@ export const travelVoucherColumns = (): ColumnDef<ITravelVoucher>[] => [
   {
     header: 'Единица изм.',
     accessorFn: (row) => row.unitOfMeasurement?.name ?? '',
+  },
+  {
+    id: 'edit',
+    cell: ({ row }) => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'} onClick={() => setEditVoucherIndex(row.index)}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

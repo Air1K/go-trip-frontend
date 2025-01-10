@@ -26,6 +26,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[] | undefined;
   isLoading?: boolean;
   isError?: boolean;
+  searchFiled?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -33,6 +34,7 @@ export function DataTable<TData, TValue>({
   data = [],
   isLoading,
   isError,
+  searchFiled = 'name',
 }: DataTableProps<TData, TValue>): JSX.Element {
   const table = useReactTable({
     data,
@@ -55,8 +57,8 @@ export function DataTable<TData, TValue>({
       <div className='flex items-center pb-4'>
         <Input
           placeholder='Фильтрация по наименованию...'
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+          value={(table.getColumn(searchFiled)?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn(searchFiled)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
         <DropdownMenu>

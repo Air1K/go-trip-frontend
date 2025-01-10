@@ -12,4 +12,11 @@ export const TravelAgency = {
     const { data } = await $api.post(segment + 'create', travelAgency);
     return data.data;
   },
+  edit: async (body: {
+    id: number;
+    travelAgency: Omit<ITravelAgency, 'id' | 'tourOperator'>;
+  }): Promise<ITravelAgency> => {
+    const { data } = await $api.put(segment + 'update/' + body.id, body.travelAgency);
+    return data.data;
+  },
 };

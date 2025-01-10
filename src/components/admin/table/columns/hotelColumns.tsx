@@ -1,8 +1,10 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { IHotel } from '@/api/hotel/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
-export const hotelColumns = (): ColumnDef<IHotel>[] => [
+export const hotelColumns = (onEdit: (index: number) => void): ColumnDef<IHotel>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -37,5 +39,17 @@ export const hotelColumns = (): ColumnDef<IHotel>[] => [
   {
     header: 'Населенный пункт',
     accessorFn: (row) => row.settlements.name,
+  },
+  {
+    id: 'edit',
+    cell: ({ row }) => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'} onClick={() => onEdit(row.index)}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

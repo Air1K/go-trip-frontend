@@ -18,3 +18,13 @@ export const useTravelAgencyCreateMutation = () => {
     },
   });
 };
+
+export const useTravelAgencyEditMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: TravelAgency.edit,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [KEY_TRAVEL_AGENCY] });
+    },
+  });
+};

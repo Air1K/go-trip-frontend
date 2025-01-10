@@ -18,3 +18,13 @@ export const useTourOperatorCreateMutation = () => {
     },
   });
 };
+
+export const useTourOperatorEditMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: TourOperator.edit,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [KEY_TOUR_OPERATOR] });
+    },
+  });
+};

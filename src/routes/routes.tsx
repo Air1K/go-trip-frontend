@@ -17,10 +17,10 @@ import AdminServicePage from '@/pages/admin/admin-directory-pages/AdminServicePa
 import AdminTypeOfSettlementPage from '@/pages/admin/admin-directory-pages/AdminTypeOfSettlementPage.tsx';
 import AdminCountryPage from '@/pages/admin/admin-directory-pages/AdminCountryPage.tsx';
 import AdminLocalityPage from '@/pages/admin/admin-directory-pages/AdminLocalityPage.tsx';
-import AdminCreateHotelPage from '@/pages/admin/admin-hotel-pages/AdminCreateHotelPage.tsx';
-import AdminCreateTravelAgencyPage from '@/pages/admin/admin-vouchers-pages/admin-travel-agency-pages/AdminCreateTravelAgencyPage.tsx';
+import AdminCreateHotelModalBody from '@/components/admin/modals/AdminCreateHotelModalBody.tsx';
+import AdminCreateTravelAgencyModalBody from '@/components/admin/modals/AdminCreateTravelAgencyModalBody.tsx';
 import AdminCreateTourOperatorModalBody from '@/components/admin/modals/AdminCreateTourOperatorModalBody.tsx';
-import AdminCreateVouchersPage from '@/pages/admin/admin-vouchers-pages/admin-vouchers-pages/AdminCreateVouchersPage.tsx';
+import AdminCreateVouchersPage from '@/components/admin/modals/AdminCreateVouchersModalBody.tsx';
 
 const router = createBrowserRouter([
   {
@@ -58,8 +58,8 @@ const router = createBrowserRouter([
                     path: 'travel-agency',
                     children: [
                       { path: '', element: <AdminTravelAgencyPage /> },
-                      { path: 'create', element: <AdminCreateTravelAgencyPage /> },
-                      { path: 'edit/:id', element: <AdminCreateTravelAgencyPage /> },
+                      { path: 'create', element: <AdminCreateTravelAgencyModalBody /> },
+                      { path: 'edit/:id', element: <AdminCreateTravelAgencyModalBody /> },
                     ],
                   },
                   {
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
                 path: 'hotels',
                 children: [
                   { path: '', element: <AdminHotelsPage /> },
-                  { path: 'create', element: <AdminCreateHotelPage /> },
+                  { path: 'create', element: <AdminCreateHotelModalBody /> },
                 ],
               },
               { path: 'reports', element: <AdminReportsPage /> },

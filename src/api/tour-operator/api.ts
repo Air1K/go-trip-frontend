@@ -12,4 +12,8 @@ export const TourOperator = {
     const { data } = await $api.post(segment + 'create', tourOperator);
     return data.data;
   },
+  edit: async (body: { id: number; tourOperator: Omit<ITourOperator, 'id'> }): Promise<ITourOperator> => {
+    const { data } = await $api.put(segment + 'update/' + body.id, body.tourOperator);
+    return data.data;
+  },
 };

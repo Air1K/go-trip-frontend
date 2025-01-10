@@ -13,4 +13,8 @@ export const hotelApi = {
     const { data } = await $api.post(segment + 'create', hotel);
     return data.data;
   },
+  edit: async (body: { id: number; hotel: HotelSchemaFormType }): Promise<IHotel> => {
+    const { data } = await $api.put(segment + 'update/' + body.id, body.hotel);
+    return data.data;
+  },
 };

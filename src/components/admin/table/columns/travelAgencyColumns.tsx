@@ -1,8 +1,10 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { ITravelAgency } from '@/api/travel-agency/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
-export const travelAgencyColumns = (): ColumnDef<ITravelAgency>[] => [
+export const travelAgencyColumns = (onEdit: (index: number) => void): ColumnDef<ITravelAgency>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -37,5 +39,17 @@ export const travelAgencyColumns = (): ColumnDef<ITravelAgency>[] => [
   {
     header: 'Туроператор',
     accessorFn: (row) => row.tourOperator.name,
+  },
+  {
+    id: 'edit',
+    cell: ({ row }) => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'} onClick={() => onEdit(row.index)}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

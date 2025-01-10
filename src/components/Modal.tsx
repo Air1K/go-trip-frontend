@@ -10,8 +10,8 @@ import {
 import { ReactElement } from 'react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Close } from '@radix-ui/react-dialog';
-import { X, DoorClosed } from 'lucide-react';
+import { AlertCircle, X } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
 
 interface ModalProps {
   leftIconHeader?: string;
@@ -25,6 +25,9 @@ interface ModalProps {
   onSubmit?: () => void;
   actionBtnText?: string;
   disabled?: boolean;
+  loading?: boolean;
+  isError?: boolean;
+  errorText?: string;
 }
 
 const Modal = ({
@@ -39,6 +42,9 @@ const Modal = ({
   onSubmit,
   actionBtnText,
   disabled,
+  loading,
+  isError = false,
+  errorText,
 }: ModalProps) => (
   <Dialog
     open={open}
@@ -67,14 +73,25 @@ const Modal = ({
           </DialogClose>
         </div>
       </DialogHeader>
-      <div className='px-8 !m-0 py-4 text-standard text-xl leading-6 tracking-tight text-left'>{main}</div>
+      <div className='px-8 !m-0 py-4 text-standard text-xl leading-6 tracking-tight text-left'>
+        {main}
+        <Alert hidden={!isError} className='mt-4' variant='destructive'>
+          <AlertCircle className='h-4 w-4' />
+          <AlertTitle>Ошибка</AlertTitle>
+          <AlertDescription>{errorText}</AlertDescription>
+        </Alert>
+      </div>
       <DialogFooter className='grid grid-flow-col auto-cols-fr gap-2 p-8 border-t'>
         {footerContent ? (
           footerContent
         ) : (
           <>
             <DialogClose className={cn(buttonVariants({ variant: 'secondary' }))}>Отмена</DialogClose>
-            <Button onClick={onSubmit} className={cn(buttonVariants({ variant: 'default' }))} disabled={disabled}>
+            <Button
+              onClick={onSubmit}
+              className={cn(buttonVariants({ variant: 'default' }))}
+              disabled={disabled || loading}
+            >
               {actionBtnText ? actionBtnText : 'Сохранить'}
             </Button>
           </>

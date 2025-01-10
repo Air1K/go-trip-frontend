@@ -18,3 +18,13 @@ export const useTravelVoucherCreateMutation = () => {
     },
   });
 };
+
+export const useTravelVoucherEditMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: TravelVoucher.edit,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [KEY_TRAVEL_VOUCHER] });
+    },
+  });
+};
