@@ -1,13 +1,14 @@
 import { FC, useMemo } from 'react';
 import { useTravelVoucherQuery } from '@/api/travel_voucher/hooks.ts';
 import { useSettlementQuery } from '@/api/settlement/hooks.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card.tsx';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card.tsx';
 import Loader from '@/components/Loader.tsx';
 import Error from '@/components/Error.tsx';
 import { formatDate } from 'date-fns';
 import CustomCard from '@/components/ui-custom/Card.tsx';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { BarChart, Bar, CartesianGrid, XAxis } from 'recharts';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const AdminReportPage: FC = () => {
   const { data: vouchers, isLoading, isError } = useTravelVoucherQuery();
@@ -84,66 +85,106 @@ const AdminReportPage: FC = () => {
           <CardContent>{unpurchasedVouchers.length}</CardContent>
         </Card>
       </div>
-      <div className={''}>
-        <div className='mt-6'>
-          <h2 className='text-xl font-semibold mb-4'>Популярные отели</h2>
-          <ChartContainer config={chartConfig} className='max-h-[300px] w-full'>
-            <BarChart data={hotelStats} accessibilityLayer>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey='hotel'
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 10)}
-              />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey='count' fill='var(--color-desktop)' radius={4} />
-            </BarChart>
-          </ChartContainer>
-        </div>
 
-        {/* График популярности городов */}
-        <div className='mt-6'>
-          <h2 className='text-xl font-semibold mb-4'>Популярные города</h2>
-          <ChartContainer config={chartConfig} className='max-h-[300px] w-full'>
-            <BarChart data={cityStats} accessibilityLayer>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey='city'
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 10)}
-              />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey='count' fill='var(--color-mobile)' radius={4} />
-            </BarChart>
-          </ChartContainer>
-        </div>
-      </div>
       {/* График популярности отелей */}
-
-      {/* Список не купленных путёвок */}
       <div className='mt-6'>
-        <h2 className='text-xl font-semibold mb-4'>Не купленные путёвки</h2>
-        <div className='space-y-4'>
-          {unpurchasedVouchers.map((voucher) => (
-            <Card key={voucher.id}>
-              <CardHeader>
-                <CardTitle>{voucher.hotel?.name || 'Неизвестный отель'}</CardTitle>
-              </CardHeader>
-              <CardContent className='text-sm text-muted-foreground'>
-                <p>Дата оформления: {formatDate(voucher.issued_at, 'yyyy-MM-dd')}</p>
-                <p>Дата вылета: {formatDate(voucher.departure_date, 'yyyy-MM-dd')}</p>
-                <p>Дата прилёта: {formatDate(voucher.arrival_date, 'yyyy-MM-dd')}</p>
-                <p>
-                  Цена: {voucher.price} {voucher.unitOfMeasurement?.name || ''}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <h2 className='text-xl font-semibold mb-4'>Популярные отели</h2>
+        <ChartContainer config={chartConfig} className='max-h-[300px] w-full'>
+          <BarChart data={hotelStats} accessibilityLayer>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey='hotel'
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 10)}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey='count' fill='var(--color-desktop)' radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </div>
+
+      {/* График популярности городов */}
+      <div className='mt-6'>
+        <h2 className='text-xl font-semibold mb-4'>Популярные города</h2>
+        <ChartContainer config={chartConfig} className='max-h-[300px] w-full'>
+          <BarChart data={cityStats} accessibilityLayer>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey='city'
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 10)}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey='count' fill='var(--color-mobile)' radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </div>
+
+      {/* Списки путёвок */}
+      <div className='mt-6'>
+        <Accordion type="single" collapsible className="w-full">
+          {/* Купленные путёвки */}
+          <AccordionItem value="purchased">
+            <AccordionTrigger>Купленные путёвки</AccordionTrigger>
+            <AccordionContent>
+              <div className='space-y-4'>
+                {purchasedVouchers.map((voucher) => (
+                  <Card key={voucher.id}>
+                    <CardHeader>
+                      <CardTitle>{voucher.hotel?.name || 'Неизвестный отель'}</CardTitle>
+                      <CardDescription>
+                        Куплена туристом: {voucher.tourist?.firstName} {voucher.tourist?.lastName || ''}
+                        <div>
+                          Email: {voucher.tourist?.email}
+                        </div>
+                        <div>
+                          Паспорт: {voucher.tourist?.passportNumber} {voucher.tourist?.passportSeries}
+                        </div>
+
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className='text-sm text-muted-foreground'>
+                      <p>Дата оформления: {formatDate(voucher.issued_at, 'yyyy-MM-dd')}</p>
+                      <p>Дата вылета: {formatDate(voucher.departure_date, 'yyyy-MM-dd')}</p>
+                      <p>Дата прилёта: {formatDate(voucher.arrival_date, 'yyyy-MM-dd')}</p>
+                      <p>
+                        Цена: {voucher.price} {voucher.unitOfMeasurement?.name || ''}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* Не купленные путёвки */}
+          <AccordionItem value="unpurchased">
+            <AccordionTrigger>Не купленные путёвки</AccordionTrigger>
+            <AccordionContent>
+              <div className='space-y-4'>
+                {unpurchasedVouchers.map((voucher) => (
+                  <Card key={voucher.id}>
+                    <CardHeader>
+                      <CardTitle>{voucher.hotel?.name || 'Неизвестный отель'}</CardTitle>
+                    </CardHeader>
+                    <CardContent className='text-sm text-muted-foreground'>
+                      <p>Дата оформления: {formatDate(voucher.issued_at, 'yyyy-MM-dd')}</p>
+                      <p>Дата вылета: {formatDate(voucher.departure_date, 'yyyy-MM-dd')}</p>
+                      <p>Дата прилёта: {formatDate(voucher.arrival_date, 'yyyy-MM-dd')}</p>
+                      <p>
+                        Цена: {voucher.price} {voucher.unitOfMeasurement?.name || ''}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </CustomCard>
   );

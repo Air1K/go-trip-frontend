@@ -1,6 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { ISettlement } from '@/api/settlement/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
 export const settlementColumns = (): ColumnDef<ISettlement>[] => [
   {
@@ -37,5 +39,17 @@ export const settlementColumns = (): ColumnDef<ISettlement>[] => [
   {
     header: 'Тип населенного пункта',
     accessorFn: (row) => row.settlementType.name,
+  },
+  {
+    id: 'edit',
+    cell: () => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

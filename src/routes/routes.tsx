@@ -2,7 +2,7 @@ import MainLayout from '@/components/layout/MainLayout';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import MainPage from '@/pages/MainPage.tsx';
 import PrivateRoute from '@/components/PrivateRoute.tsx';
-import BasketPage from '@/pages/BasketPage.tsx';
+import MyVouchers from '@/pages/MyVouchers.tsx';
 import AdminVouchersPage from '@/pages/admin/admin-vouchers-pages/admin-vouchers-pages/AdminVouchersPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
 import ProfilePage from '@/pages/ProfilePage.tsx';
@@ -21,6 +21,7 @@ import AdminCreateHotelModalBody from '@/components/admin/modals/AdminCreateHote
 import AdminCreateTravelAgencyModalBody from '@/components/admin/modals/AdminCreateTravelAgencyModalBody.tsx';
 import AdminCreateTourOperatorModalBody from '@/components/admin/modals/AdminCreateTourOperatorModalBody.tsx';
 import AdminCreateVouchersPage from '@/components/admin/modals/AdminCreateVouchersModalBody.tsx';
+import BasketPage from '@/pages/BasketPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,8 @@ const router = createBrowserRouter([
         element: <PrivateRoute isAllowed={true} />,
         children: [
           { path: '', element: <MainPage /> },
-          { path: 'vouchers', element: <BasketPage /> },
+          { path: 'vouchers', element: <MyVouchers /> },
+          { path: 'basket', element: <BasketPage /> },
           {
             path: 'admin',
             element: (

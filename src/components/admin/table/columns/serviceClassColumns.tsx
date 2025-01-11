@@ -1,6 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { IServiceClass } from '@/api/service-class/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
 export const serviceClassColumns = (): ColumnDef<IServiceClass>[] => [
   {
@@ -29,5 +31,17 @@ export const serviceClassColumns = (): ColumnDef<IServiceClass>[] => [
   {
     accessorKey: 'name',
     header: 'Наименование',
+  },
+  {
+    id: 'edit',
+    cell: () => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

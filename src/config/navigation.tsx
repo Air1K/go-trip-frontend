@@ -6,7 +6,7 @@ const commonNavLinks: NavLink[] = [{ path: '/', label: 'Все путевки' }
 
 const roleSpecificNavLinks: { [key in string]?: NavLink[] } = {
   [userRoles.ADMIN]: [{ path: '/admin', label: 'Админ-панель', isDesktopOnly: true }],
-  [userRoles.USER]: [{ path: '/vouchers', label: 'Мои путевки' }],
+  [userRoles.USER]: [{ path: '/vouchers', label: 'Мои путевки' }, { path: '/basket', label: 'Корзина' }],
 };
 
 export function getNavLinks(role: string): NavLink[] {

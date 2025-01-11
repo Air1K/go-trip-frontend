@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { useQueryClient } from '@tanstack/react-query';
 import { IUser } from '@/api/user/types.ts';
 import { KEY_PROFILE } from '@/api/user/hooks.ts';
-import baseAvatar from '@/assets/img/default-avatar-icon.webp';
+import baseAvatar from '@/assets/img/banana-icon.avif';
 import ItemProfileInfo from '@/components/ItemProfileInfo.tsx';
 import { formatDate } from 'date-fns';
 

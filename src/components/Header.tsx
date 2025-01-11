@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { getNavLinks, userLink } from '@/config/navigation.tsx';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import AvatarController from '@/components/ui-custom/AvatarController.tsx';
-import BaseAvatar from '@/assets/img/default-avatar-icon.webp';
+import BaseAvatar from '@/assets/img/banana-icon.avif';
 import {
   DropdownMenu,
   DropdownMenuContent,

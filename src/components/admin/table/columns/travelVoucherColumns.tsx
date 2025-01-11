@@ -48,7 +48,6 @@ export const travelVoucherColumns = (setEditVoucherIndex: (index: number) => voi
   },
   {
     header: 'Турист',
-    // Выводим данные туриста (User) - например, firstName + lastName
     accessorFn: (row) => (row.tourist ? `${row.tourist.firstName ?? ''} ${row.tourist.lastName ?? ''}`.trim() : '-'),
   },
   {

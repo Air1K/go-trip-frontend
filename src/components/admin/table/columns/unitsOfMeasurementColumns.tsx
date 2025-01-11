@@ -1,6 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { IUnitOfMeasurement } from '@/api/units-of-measurement/types.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { Edit } from 'lucide-react';
 
 export const unitOfMeasurementColumns = (): ColumnDef<IUnitOfMeasurement>[] => [
   {
@@ -33,5 +35,17 @@ export const unitOfMeasurementColumns = (): ColumnDef<IUnitOfMeasurement>[] => [
   {
     accessorKey: 'short_name',
     header: 'Краткое наименование',
+  },
+  {
+    id: 'edit',
+    cell: () => (
+      <div className={'w-full flex'}>
+        <Button className={'ml-auto'} variant={'outline'} size={'sm'}>
+          <Edit />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];
